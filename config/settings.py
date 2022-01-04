@@ -5,25 +5,16 @@ import environ
 # webTokenの有効期限用
 from datetime import timedelta
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 env = environ.Env()
 env.read_env(os.path.join(BASE_DIR, '.env'))
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env('SECRET_KEY')
 
-
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-
-
-# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -36,8 +27,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     #認証
-    'djoser'
+    'djoser',
     #アプリ
+    'user',
     'api',
 ]
 
@@ -94,8 +86,6 @@ SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
 }
 
-# Database
-# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
     'default': {
@@ -108,9 +98,6 @@ DATABASES = {
     }
 }
 
-
-# Password validation
-# https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -142,7 +129,8 @@ USE_L10N = True
 USE_TZ = True
 
 
-
+# 認証に使うモデルを設定
+AUTH_USER_MODEL = 'user.User'
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [

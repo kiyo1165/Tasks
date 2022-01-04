@@ -2,6 +2,13 @@ from django.db import models
 
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+import uuid
+from config import settings
+
+def upload_avater_path(instance, filename):
+    ext = filename.split('.')[-1]
+    return '/'.join(['avaters', str(instance.user_profile.id) + str(".") + str(ext)])
+
 
 class UserManager(BaseUserManager):
 
@@ -38,3 +45,14 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.name
+
+class Profile(models.Model):
+    user_profile = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        related_name='user_profile',
+        on_delete=models.CASCADE
+    )
+    img = models.ImageField(blank=True, null=True, upload_to=upload_avater_path)
+
+    def __str__(self):
+        return self.user_profile.name

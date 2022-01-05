@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from models import Task, Category
+from .models import Task, Category
 from user.models import User, Profile
 from django.contrib.auth import get_user_model
 
@@ -18,8 +18,9 @@ class UserSerializer(serializers.ModelSerializer):
 
     #ハッシュ化したパスワードを保存
     # create_userはBaseUserManagerを引用
-    def create(self, **validated_data):
-        user = get_user_model().create_user(**validated_data)
+    def create(self, validated_data):
+        print(validated_data)
+        user = get_user_model().objects.create_user(**validated_data)
         return user
 
 

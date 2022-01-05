@@ -23,7 +23,7 @@ class Task(models.Model):
     status = models.CharField(max_length=40, choices=STATUS, default='1')
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     #0以上の整数を受け取る
-    estimate = models.ImageField(validators=[MinValueValidator(0)])
+    estimate = models.IntegerField(validators=[MinValueValidator(0)])
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='owner')
     responsible = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='responsible')
     created_at = models.DateField(auto_now_add=True)

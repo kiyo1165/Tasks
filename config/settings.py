@@ -25,8 +25,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'rest_framework',
+    # JWT認証
     'rest_framework_simplejwt',
-    #認証
+    #認証エンドポイントを作成
     'djoser',
     #アプリ
     'user',
